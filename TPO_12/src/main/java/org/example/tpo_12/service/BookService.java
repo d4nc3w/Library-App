@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -26,5 +27,13 @@ public class BookService {
             booksDTO.add(bookDTOMapper.map(b));
         }
         return booksDTO;
+    }
+
+    public Optional<Book> findBookById(Integer id) {
+        return bookRepository.findById(id);
+    }
+
+    public void addBook(BookDTO bookDTO){
+        bookRepository.save(bookDTOMapper.map(bookDTO));
     }
 }

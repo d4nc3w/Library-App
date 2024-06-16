@@ -11,10 +11,10 @@
 <body class="bg-info-subtle text-info-emphasis text-center">
 <main layout:fragment="content">
     <div class="container mt-4">
-    <a class="btn btn-outline-primary" href="/registerReader" role="button">Register Reader</a>
-    <a class="btn btn-outline-primary" href="/registerPublisher" role="button">Register Publisher</a>
-        <br><br>
-    <h1>All Books</h1>
+<!--        <a class="btn btn-outline-primary" href="/registerReader" role="button">Register Reader</a>-->
+<!--        <a class="btn btn-outline-primary" href="/registerPublisher" role="button">Register Publisher</a>-->
+<!--        <br><br>-->
+        <h1>All Books</h1>
         <div class="table-container">
             <table class="table table-light">
                 <thead>
@@ -23,21 +23,25 @@
                     <th>Author</th>
                     <th>Title</th>
                     <th>Price</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
-                <div th:each="book : ${books}">
-                    <tbody>
-                    <tr>
-                        <td><pre th:text="${book.id}"></pre></td>
-                        <td><pre th:text="${book.author}"></pre></td>
-                        <td><pre th:text="${book.title}"></pre></td>
-                        <td><pre th:text="${book.price}"></pre></td>
-                    </tr>
-                    </tbody>
-                </div>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.id}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.price}"></td>
+                    <td>
+                        <a class="btn btn-outline-primary" th:href="@{'/book?id=' + ${book.id}}" role="button">Details</a>
+                    </td>
+                </tr>
+                </tbody>
             </table>
         </div>
-        </div>
+        <a class="btn btn-light" href="/adminPage" role="button">Admin Page</a>
+        <a th:if="${#authentication.isAuthenticated()}"
+           th:href="@{/addBook}" class="btn btn-info">Add Book</a>
     </div>
 </main>
 </body>

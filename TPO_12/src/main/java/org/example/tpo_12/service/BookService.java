@@ -36,4 +36,19 @@ public class BookService {
     public void addBook(BookDTO bookDTO){
         bookRepository.save(bookDTOMapper.map(bookDTO));
     }
+
+    public void borrowBook(Integer id) {
+        Optional<Book> book = bookRepository.findById(id);
+        if (book.isPresent()) {
+            Book b = book.get();
+            if (b.isAvailable()) {
+                b.setAvailable(false);
+                bookRepository.save(b);
+            } else {
+                throw new RuntimeException("Book is not available");
+            }
+        } else {
+            throw new RuntimeException("Book not found");
+        }
+    }
 }

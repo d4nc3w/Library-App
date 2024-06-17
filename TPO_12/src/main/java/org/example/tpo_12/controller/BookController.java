@@ -42,4 +42,25 @@ public class BookController {
         bookService.addBook(bookDTO);
         return "redirect:/";
     }
+
+    @GetMapping("borrowBook")
+    public String borrowBook(@RequestParam Integer id, Model model) {
+        try {
+            bookService.borrowBook(id);
+        } catch (RuntimeException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "borrowerror";
+        }
+        return "redirect:/borrowsuccess";
+    }
+
+    @GetMapping("borrowsuccess")
+    public String borrowSuccess() {
+        return "borrowsuccess";
+    }
+
+    @GetMapping("borrowerror")
+    public String borrowError() {
+        return "borrowerror";
+    }
 }

@@ -19,8 +19,9 @@ public class SecurityConfig {
                 .requestMatchers("/userPage").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN")
                 .requestMatchers("/images/background.png", "/images/logo.png").permitAll()
                 .requestMatchers("/adminPage/**").hasAnyRole("ADMIN")
-                .requestMatchers("/book").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN")
+                .requestMatchers("/book").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN", "GUEST")
                 .requestMatchers("/addBook").hasAnyRole("PUBLISHER", "LIBRARIAN", "ADMIN")
+                .requestMatchers("/borrowBook").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN")
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated());

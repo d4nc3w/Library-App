@@ -28,7 +28,12 @@
 </div>
 <div th:fragment="footer">
     <br><br>
+    <a th:if="${#authentication.isAuthenticated()}"
+       th:text="|Log out ${#authentication.name}|" th:href="@{/logout}"
+       class="btn btn-danger"></a>
+    <br><br>
     <p>TPO @ PJAIT &copy;2024</p>
+    <br>
 </div>
 </body>
 </html>

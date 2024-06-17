@@ -6,6 +6,7 @@ public class BookDTO {
     public String author;
     public String title;
     public int price;
+    public boolean isAvailable;
 
     public BookDTO(){}
 
@@ -13,6 +14,7 @@ public class BookDTO {
         this.author = author;
         this.title = title;
         this.price = price;
+        this.isAvailable = true;
     }
 
     public Integer getId() {
@@ -45,5 +47,13 @@ public class BookDTO {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }

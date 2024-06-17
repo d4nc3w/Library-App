@@ -89,14 +89,19 @@ public class UserService {
         switch (randomNumber) {
             case 1:
                 pass = "{bcrypt}" + new BCryptPasswordEncoder().encode(password);
+                break;
             case 2:
                 pass = "{MD5}" + new MessageDigestPasswordEncoder("MD5").encode(password);
+                break;
             case 3:
                 pass = "{noop}" + password;
+                break;
             case 4:
                 pass = "{SHA-256}" + new MessageDigestPasswordEncoder("SHA-256").encode(password);
+                break;
             case 5:
                 pass = "{pbkdf2}" + new Pbkdf2PasswordEncoder("secret", 5, 100, 10).encode(password);
+                break;
         }
         return pass;
     }

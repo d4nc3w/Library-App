@@ -9,8 +9,9 @@ VALUES
     ('Szymon', 'Kowalski', 'sb@wp.pl', '{noop}Pjwstk0112?'),
     -- wkpl@gmail.com / - / READER
     ('Wojciech', 'Krawczyk', 'wkpl@gmail.com', '{SHA-256}{ga0mJM2HB2OUlBMbaUVsfL6YYyXLDuKOcTP4QdjUVaw=}89bc22c7dfeeccb5873c72ad8f5b74324f8c7448285ffe5fafa0115d045ced23'),
-    -- wkpl@gmail.com / - / GUEST
-    ('Anna', 'Matczak', 'annamatczak@gazeta.pl', '{pbkdf2}7244d4168c5e');
+    -- annamatczak@gazeta.pl / Pjatk123 / GUEST
+    ('Anna', 'Matczak', 'annamatczak@gazeta.pl', '{bcrypt}$2a$10$cLj7OzLGBlQpF7bw4bMtIOVugCy95v2VrgKMe5k3UrGO5OVG01vo.');
+
 
 
 INSERT INTO

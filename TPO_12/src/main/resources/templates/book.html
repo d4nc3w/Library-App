@@ -22,6 +22,8 @@
                         <th>Author</th>
                         <th>Title</th>
                         <th>Price</th>
+                        <th>Available?</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,6 +32,11 @@
                         <td th:text="${book.author}"></td>
                         <td th:text="${book.title}"></td>
                         <td th:text="${book.price}"></td>
+                        <td th:text="${book.available ? 'Yes' : 'No'}"></td>
+                        <td>
+                            <a class="btn btn-outline-primary" th:if="${book.available}" th:href="@{'/borrowBook?id=' + ${book.id}}" role="button">Borrow</a>
+                            <span th:if="${!book.available}">Not Available</span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

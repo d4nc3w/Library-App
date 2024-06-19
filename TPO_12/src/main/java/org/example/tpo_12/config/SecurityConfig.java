@@ -16,10 +16,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
                 .requestMatchers("/register/**", "/confirm").permitAll()
-                .requestMatchers("/userPage").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN")
+                //.requestMatchers("/userPage").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN")
                 .requestMatchers("/images/background.png", "/images/logo.png").permitAll()
                 .requestMatchers("/adminPage/**").hasAnyRole("ADMIN")
-                .requestMatchers("/book").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN", "GUEST")
+                .requestMatchers("/book").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN")
                 .requestMatchers("/addBook").hasAnyRole("PUBLISHER", "LIBRARIAN", "ADMIN")
                 .requestMatchers("/borrowBook").hasAnyRole("READER", "PUBLISHER", "LIBRARIAN", "ADMIN")
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()

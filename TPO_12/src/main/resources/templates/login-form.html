@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Please sign in</title>
@@ -18,7 +17,13 @@
             font-size: 16px;
         }
     </style>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function proceedAsGuest() {
+            $('#username').val('guest@gmail.com');
+            $('#password').val('HelloGuest!');
+        }
+    </script>
 </head>
 <body>
 <div class="container py-5 h-100">
@@ -38,12 +43,12 @@
                             <h5 class="fw-normal mb-3 pb-3">Sign into your account</h5>
 
                             <div class="form-outline mb-4">
-                                <input name="username" type="text" class="form-control"/>
+                                <input id="username" name="username" type="text" class="form-control"/>
                                 <label class="form-label">Email address</label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input name="password" type="password" class="form-control"/>
+                                <input id="password" name="password" type="password" class="form-control"/>
                                 <label class="form-label">Password</label>
                             </div>
 
@@ -60,6 +65,7 @@
                                 <p class="mb-0">You don't have an account?</p>
                                 <a class="btn btn-outline-success ms-2" th:href="@{/register/reader}">Register as Reader</a>
                                 <a class="btn btn-outline-success ms-2" th:href="@{/register/publisher}">Register as Publisher</a>
+                                <button class="btn btn-outline-success ms-2" onclick="proceedAsGuest()">Proceed as Guest</button>
                             </div>
                         </div>
                     </div>

@@ -9,10 +9,8 @@ VALUES
     ('Szymon', 'Kowalski', 'sb@wp.pl', '{noop}Pjwstk0112?'),
     -- wkpl@gmail.com / - / READER
     ('Wojciech', 'Krawczyk', 'wkpl@gmail.com', '{SHA-256}{ga0mJM2HB2OUlBMbaUVsfL6YYyXLDuKOcTP4QdjUVaw=}89bc22c7dfeeccb5873c72ad8f5b74324f8c7448285ffe5fafa0115d045ced23'),
-    -- annamatczak@gazeta.pl / Pjatk123 / GUEST
-    ('Anna', 'Matczak', 'annamatczak@gazeta.pl', '{bcrypt}$2a$10$cLj7OzLGBlQpF7bw4bMtIOVugCy95v2VrgKMe5k3UrGO5OVG01vo.');
-
-
+    -- guest@gmail.com / HelloGuest! / GUEST
+    ('Dummy', 'Dummy', 'guest@gmail.com', '{noop}HelloGuest!');
 
 INSERT INTO
     UserRole (name, description)
@@ -27,13 +25,7 @@ INSERT INTO
     App_user_roles (User_id, roles_id)
 VALUES
     (1, 1),
-    (1, 2),
-    (1, 3),
-    (1, 4),
     (2, 2),
-    (2, 3),
-    (2, 4),
     (3, 3),
-    (3, 4),
     (4, 4),
     (5, 5);

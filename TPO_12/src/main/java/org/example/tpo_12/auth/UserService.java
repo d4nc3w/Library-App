@@ -3,9 +3,7 @@ package org.example.tpo_12.auth;
 import jakarta.transaction.Transactional;
 import org.example.tpo_12.repository.UserRepository;
 import org.example.tpo_12.repository.UserRoleRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,11 +44,11 @@ public class UserService {
         return Set.of();
     }
 
-    private boolean isCurrentUserAdmin() {
+    /*    private boolean isCurrentUserAdmin() {
         return SecurityContextHolder.getContext()
                 .getAuthentication().getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-    }
+    }*/
 
     @Transactional
     public void registerReader(UserRegisterDTO userDTO){
@@ -62,7 +60,9 @@ public class UserService {
 //        user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder()
 //                .encode(userDTO.getPassword()));
         Optional<UserRole> userRole = userRoleRepository.findByName("READER");
+        Optional<UserRole> userRole2 = userRoleRepository.findByName("GUEST");
         userRole.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
+        userRole2.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
         userRepository.save(user);
     }
 
@@ -77,32 +77,43 @@ public class UserService {
 //                .encode(userDTO.getPassword()));
         Optional<UserRole> userRole = userRoleRepository.findByName("PUBLISHER");
         Optional<UserRole> userRole2 = userRoleRepository.findByName("READER");
+        Optional<UserRole> userRole3 = userRoleRepository.findByName("GUEST");
         userRole.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
         userRole2.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
+        userRole3.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
         userRepository.save(user);
     }
+
+//    @Transactional
+//    public UserDTO registerGuest(){
+//        User user = new User();
+//        user.setFirstName(generateFirstName());
+//        user.setLastName(generateLastName());
+//        user.setEmail(generateEmail());
+//        user.setPassword(randomPasswordEncoding(generatePassword()));
+//        Optional<UserRole> userRole = userRoleRepository.findByName("GUEST");
+//        userRole.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
+//        userRepository.save(user);
+//        return UserDTOMapper.map(user);
+//    }
 
     private String randomPasswordEncoding(String password) {
         Random random = new Random();
         int randomNumber = random.nextInt(5) + 1;
         String pass = "";
-        switch (randomNumber) {
-            case 1:
-                pass = "{bcrypt}" + new BCryptPasswordEncoder().encode(password);
-                break;
-            case 2:
-                pass = "{MD5}" + new MessageDigestPasswordEncoder("MD5").encode(password);
-                break;
-            case 3:
-                pass = "{noop}" + password;
-                break;
-            case 4:
-                pass = "{SHA-256}" + new MessageDigestPasswordEncoder("SHA-256").encode(password);
-                break;
-            case 5:
-                pass = "{pbkdf2}" + new Pbkdf2PasswordEncoder("secret", 5, 100, 10).encode(password);
-                break;
+
+        if (randomNumber == 1) {
+            pass = "{bcrypt}" + new BCryptPasswordEncoder().encode(password);
+        } else if (randomNumber == 2) {
+            pass = "{MD5}" + new MessageDigestPasswordEncoder("MD5").encode(password);
+        } else if (randomNumber == 3) {
+            pass = "{noop}" + password;
+        } else if (randomNumber == 4) {
+            pass = "{SHA-256}" + new MessageDigestPasswordEncoder("SHA-256").encode(password);
+        } else if (randomNumber == 5) {
+            pass = "{pbkdf2}" + new Pbkdf2PasswordEncoder("secret", 5, 100, 10).encode(password);
         }
+
         return pass;
     }
 
@@ -112,12 +123,10 @@ public class UserService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            // Clear existing roles and add new roles
             user.getRoles().clear();
             roles.forEach(roleName -> {
-                String roleNameWithoutPrefix = roleName.replace("ROLE_", ""); // Remove prefix
-                UserRole role = userRoleRepository.findByName(roleNameWithoutPrefix)
-                        .orElseThrow(() -> new RuntimeException("Role not found: " + roleNameWithoutPrefix));
+                UserRole role = userRoleRepository.findByName(roleName)
+                        .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
                 user.getRoles().add(role);
             });
 

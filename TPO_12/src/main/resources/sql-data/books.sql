@@ -1,14 +1,14 @@
 insert into
-    BOOK (AUTHOR,TITLE,PRICE,ISAVAILABLE)
+    BOOK (AUTHOR,TITLE,PRICE,ISAVAILABLE,DESCRIPTION)
 values
-    ('Horstman', 'Java Core', 99.99, true),
-    ('Craig Walls', 'Spring in Action', 70.85, true),
-    ('Jaideva Goswami', 'Fundamentals of Wavelets', 12.98, true),
-    ('John Foreman', 'Data Smart', 20.99, true),
-    ('Stephen Hawking', 'God Created the Integers', 63.12, true),
-    ('Robert Fisk', 'Great War for Civilization', 44.45, true),
-    ('Robert Fisk', 'Age of the Warrior', 86.76, true),
-    ('Stephen Hawking', 'Theory of Everything', 22.68, true),
-    ('David Bodanis', 'Electric Universe', 29.35, true),
-    ('John Steinbeck', 'Burning Bright', 36.22, true),
-    ('Stephen Hawking', 'Brief Answers to the Big Questions', 112.99, true);
+    ('Horstman', 'Java Core', 99.99, true, 'The book is aimed at experienced programmers who want to learn how to write useful Java applications.'),
+    ('Craig Walls', 'Spring in Action', 70.85, true, 'If you need to learn Spring, look no further than this widely beloved and comprehensive guide! Fully revised for Spring 5.3, and packed with interesting real-world examples to get your hands dirty with Spring.'),
+    ('Jaideva Goswami', 'Fundamentals of Wavelets', 12.98, true, 'This book provides a thorough treatment of the subject from an engineering point of view. It is a one-stop source of theory, algorithms, applications, and computer codes related to wavelets.'),
+    ('John Foreman', 'Data Smart', 20.99, true, 'Data Science gets thrown around in the press like its magic. Its a brave new world where seemingly meaningless data can be transformed into valuable insight to drive smart business decisions.'),
+    ('Stephen Hawking', 'God Created the Integers', 63.12, true, 'Bestselling author and physicist Stephen Hawking explores the "masterpieces" of mathematics, 25 landmarks spanning 2,500 years and representing the work of 15 mathematicians.'),
+    ('Robert Fisk', 'Great War for Civilization', 44.45, true, 'This book is written with passion and anger, a reporter’s eyewitness account of the Middle East’s history. All the most dangerous men of the past quarter century in the region.'),
+    ('Robert Fisk', 'Age of the Warrior', 86.76, true, 'Robert Fisk has amassed a devoted readership over the years, with his insightful.'),
+    ('Stephen Hawking', 'Theory of Everything', 22.68, true, 'Seven lectures by the brilliant theoretical physicist have been compiled into this book '),
+    ('David Bodanis', 'Electric Universe', 29.35, true, 'In Electric Universe, the great discoverers come to life in all their brilliance and idiosyncrasy, including the visionary Michael Faraday, who struggled against the prejudices of the British class system.'),
+    ('John Steinbeck', 'Burning Bright', 36.22, true, 'Written as a play in story form, this novel traces the story of a man ignorant of his own sterility, a wife who commits adultery to give her husband a child, the father of that child, and the outsider whose actions affect them all.'),
+    ('Stephen Hawking', 'Brief Answers to the Big Questions', 112.99, true, 'Written as a play in story form, this novel traces the story of a man ignorant of his own sterility, a wife who commits adultery to give her husband a child, the father of that child, and the outsider whose actions affect them all.');

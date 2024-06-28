@@ -1,5 +1,7 @@
 package org.example.tpo_12.model;
 
+import java.util.Set;
+
 public class BookDTO {
     public Integer id;
 
@@ -7,14 +9,19 @@ public class BookDTO {
     public String title;
     public int price;
     public boolean isAvailable;
+    public String description;
+    public Set<Rating> ratings;
+    public int averageRating = 0;
 
     public BookDTO(){}
 
-    public BookDTO(String author, String title, int price){
+    public BookDTO(String author, String title, int price, String description, Set<Rating> ratings){
         this.author = author;
         this.title = title;
         this.price = price;
         this.isAvailable = true;
+        this.description = description;
+        this.ratings = ratings;
     }
 
     public Integer getId() {
@@ -55,5 +62,29 @@ public class BookDTO {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public void setAverageRating(int averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public int getAverageRating() {
+        return averageRating;
     }
 }

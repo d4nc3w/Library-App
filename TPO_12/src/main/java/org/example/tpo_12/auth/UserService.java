@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -84,18 +85,18 @@ public class UserService {
         userRepository.save(user);
     }
 
-//    @Transactional
-//    public UserDTO registerGuest(){
-//        User user = new User();
-//        user.setFirstName(generateFirstName());
-//        user.setLastName(generateLastName());
-//        user.setEmail(generateEmail());
-//        user.setPassword(randomPasswordEncoding(generatePassword()));
-//        Optional<UserRole> userRole = userRoleRepository.findByName("GUEST");
-//        userRole.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
-//        userRepository.save(user);
-//        return UserDTOMapper.map(user);
-//    }
+    /*    @Transactional
+        public UserDTO registerGuest(){
+            User user = new User();
+            user.setFirstName(generateFirstName());
+            user.setLastName(generateLastName());
+            user.setEmail(generateEmail());
+            user.setPassword(randomPasswordEncoding(generatePassword()));
+            Optional<UserRole> userRole = userRoleRepository.findByName("GUEST");
+            userRole.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
+            userRepository.save(user);
+            return UserDTOMapper.map(user);
+        }*/
 
     private String randomPasswordEncoding(String password) {
         Random random = new Random();
@@ -134,5 +135,17 @@ public class UserService {
         } else {
             throw new RuntimeException("User not found with email: " + email);
         }
+    }
+
+    @Transactional
+    public void registerUser(UserRegisterDTO userDTO){
+        User user = new User();
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(randomPasswordEncoding(userDTO.getPassword()));
+        Optional<UserRole> userRole = userRoleRepository.findByName("GUEST");
+        userRole.ifPresentOrElse(role -> user.getRoles().add(role), Exception::new);
+        userRepository.save(user);
     }
 }

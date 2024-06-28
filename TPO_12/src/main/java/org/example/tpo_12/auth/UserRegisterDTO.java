@@ -1,10 +1,13 @@
 package org.example.tpo_12.auth;
 
+import java.util.List;
+
 public class UserRegisterDTO {
     private String email;
     private String password;
     private String firstName;
     private String lastName;
+    private List<UserRole> roles;
 
     public String getEmail() {
         return email;
@@ -45,5 +48,13 @@ public class UserRegisterDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
 }

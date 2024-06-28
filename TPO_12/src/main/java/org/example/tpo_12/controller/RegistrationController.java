@@ -1,4 +1,4 @@
-package org.example.tpo_12.auth;
+package org.example.tpo_12.controller;
 
 import org.example.tpo_12.auth.UserRegisterDTO;
 import org.example.tpo_12.auth.UserService;

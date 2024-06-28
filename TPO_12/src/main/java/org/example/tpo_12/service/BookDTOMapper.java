@@ -13,6 +13,7 @@ public class BookDTOMapper {
         bookDTO.setAuthor(book.getAuthor());
         bookDTO.setPrice(book.getPrice());
         bookDTO.setTitle(book.getTitle());
+        bookDTO.setDescription(book.getDescription());
         return bookDTO;
     }
 
@@ -22,6 +23,7 @@ public class BookDTOMapper {
         book.setAuthor(bookDTO.getAuthor());
         book.setPrice(bookDTO.getPrice());
         book.setTitle(bookDTO.getTitle());
+        book.setDescription(bookDTO.getDescription());
         return book;
     }
 }

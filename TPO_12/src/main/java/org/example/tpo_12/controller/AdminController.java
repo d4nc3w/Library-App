@@ -1,5 +1,6 @@
 package org.example.tpo_12.controller;
 
+import org.example.tpo_12.auth.UserRegisterDTO;
 import org.example.tpo_12.auth.UserRole;
 import org.example.tpo_12.auth.UserService;
 import org.example.tpo_12.model.Book;
@@ -7,10 +8,7 @@ import org.example.tpo_12.model.BookDTO;
 import org.example.tpo_12.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -51,6 +49,18 @@ public class AdminController {
     @PostMapping("/editUser")
     public String editUser(@RequestParam String email, @RequestParam Set<String> roles){
         userService.updateUserRoles(email, roles);
+        return "redirect:/adminPage";
+    }
+
+    @GetMapping("/addUser")
+    public String addUserForm(Model model) {
+        model.addAttribute("userRegisterDTO", new UserRegisterDTO());
+        return "add-user";
+    }
+
+    @PostMapping("/addUser")
+    public String addUser(@ModelAttribute("userRegisterDTO") UserRegisterDTO userDTO) {
+        userService.registerUser(userDTO);
         return "redirect:/adminPage";
     }
 }

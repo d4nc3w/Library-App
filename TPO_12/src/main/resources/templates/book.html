@@ -36,11 +36,32 @@
                         <td>
                             <a class="btn btn-outline-primary" th:if="${book.available}" th:href="@{'/borrowBook?id=' + ${book.id}}" role="button">Borrow</a>
                             <span th:if="${!book.available}">Not Available</span>
+                            <a class="btn btn-outline-primary" th:href="@{'/rateBook?id=' + ${book.id}}" role="button">Rate</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="star-ratings">
+                <span th:each="i : ${#numbers.sequence(1, avgRating)}">&#9733;</span>
+            </div>
+            <br>
+            <div class="card mx-auto" style="width: 18rem;">
+                <img th:src="@{/images/{id}.jpg(id=${book.id})}" class="card-img-top" alt="Book Image">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${book.title}">Card title</h5>
+                    <p class="card-text" th:text="${book.description}">Book description here</p>
+                </div>
+            </div>
+            <br>
+            <a class="btn btn-danger" th:href="@{/deleteBook(id=${book.id})}" role="button">Delete this book</a>
+            <a class="btn btn-info" th:href="@{/editBook(id=${book.id})}" role="button">Edit this book</a>
+            <form th:action="@{/changeAvailability/book}" method="post">
+                <input type="hidden" name="id" th:value="${book.id}" />
+                <input type="hidden" name="available" th:value="${!book.available}" />
+                <button type="submit" class="btn btn-success mt-3" th:text="${book.available ? 'Make Unavailable' : 'Make Available'}"></button>
+            </form>
+            <br>
             <a class="btn btn-primary" href="/" role="button">Go Back</a>
         </div>
 

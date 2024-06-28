@@ -1,13 +1,14 @@
 package org.example.tpo_12.controller;
 
+import org.example.tpo_12.model.Book;
 import org.example.tpo_12.model.BookDTO;
+import org.example.tpo_12.model.Rating;
 import org.example.tpo_12.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -28,6 +29,7 @@ public class BookController {
     @GetMapping("book")
     public String getBook(@RequestParam Integer id, Model model){
         bookService.findBookById(id).ifPresent(book -> model.addAttribute("book", book));
+        model.addAttribute("avgRating", bookService.calculateAvgRating(id));
         return "book";
     }
 
@@ -62,5 +64,49 @@ public class BookController {
     @GetMapping("borrowerror")
     public String borrowError() {
         return "borrowerror";
+    }
+
+    @GetMapping("changeAvailability/book")
+    public String changeAvailability(@RequestParam Integer id, @RequestParam Boolean available) {
+        bookService.changeAvailability(id, available);
+        return "redirect:/book?id=" + id;
+    }
+
+    @PostMapping("changeAvailability/book")
+    public String changeAvailabilityPost(@RequestParam Integer id, @RequestParam Boolean available) {
+        bookService.changeAvailability(id, available);
+        return "redirect:/book?id=" + id;
+    }
+
+    @GetMapping("deleteBook")
+    public String deleteBook(@RequestParam Integer id) {
+        bookService.deleteBook(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("editBook")
+    public String updateBookForm(@RequestParam Integer id, Model model) {
+        bookService.findBookById(id).ifPresent(book -> model.addAttribute("book", book));
+        return "edit-book";
+    }
+
+    @PostMapping("editBook")
+    public String editBook(@ModelAttribute("book") BookDTO bookDTO) {
+        bookService.updateBook(bookDTO);
+        return "redirect:/";
+    }
+
+    @GetMapping("rateBook")
+    public String rateBookForm(@RequestParam Integer id, Model model) {
+        bookService.findBookById(id).ifPresent(book -> model.addAttribute("book", book));
+        model.addAttribute("rating", new Rating());
+        return "rate-book";
+    }
+
+    @PostMapping("rateBook")
+    public String rateBook(@ModelAttribute("rating") Rating rating) {
+        //bookService.findBookById(bookId).ifPresent(rating::setBook);
+        bookService.saveRating(rating);
+        return "redirect:/";
     }
 }
